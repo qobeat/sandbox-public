@@ -80,7 +80,7 @@ Safety rules:
 - Keep `force=false` unless the user explicitly requests history rewriting.
 - `create_blob`, `create_tree`, and `create_commit` create Git objects but do not make the intended branch visibly change until `update_ref` succeeds.
 
-Test 2 private-repo coverage uses this path to replace `tests1.txt` with this guide in one commit.
+Test 2 private-repo coverage used this path to replace `tests1.txt` with this guide in one commit.
 
 ## 4. Branch + Pull Request path
 
@@ -184,4 +184,28 @@ Test 1 private commit creating `tests1.txt`:
 
 `67b57904a887c85e1e3de2b9ec1276fb02c58ae1`
 
-Test 2 replaces those temporary files with this permanent guide while exercising two distinct direct GitHub write architectures.
+Test 2 replaced those temporary files with this permanent guide while exercising two distinct direct GitHub write architectures.
+
+## 12. Repository-adjacent write capabilities
+
+These operations mutate GitHub repository state but are not file-write transports.
+
+The checked `issue` tool group exposed mutations including:
+
+- `create_issue`
+- `update_issue`
+- `add_issue_assignees`
+- `remove_issue_assignees`
+- `add_issue_labels`
+- `remove_issue_label`
+- `lock_issue_conversation`
+- `unlock_issue_conversation`
+- `add_comment_to_issue`
+- `update_issue_comment`
+- issue-comment reaction add/remove operations
+
+The checked PR group additionally exposed PR metadata/review/comment mutations described above.
+
+Use these only when the user actually wants issue/PR state changed; they are separate from committing repository files.
+
+Exact registry queries for `release` and `tag` returned no matching GitHub tools on 2026-08-18. Treat this only as a statement about those checked tool queries in this environment, not as a statement about GitHub's general capabilities.
